@@ -17,6 +17,7 @@ int main() {
         int price;
         char act=NULL;
         int i=j;
+        
         while (true) {
             char c = input[i];
             i++;
