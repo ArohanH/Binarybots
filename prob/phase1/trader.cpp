@@ -11,7 +11,6 @@ int main() {
     string input = rcv.readIML();
     int j=0;
     int len=input.size();
-
     while (j<len) {
         string stock_name=NULL;
         string p=NULL;
