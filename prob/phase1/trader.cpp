@@ -26,128 +26,171 @@ int main()
         stream >> stock_name >> p >> act;
         price = stoi(p);
 
+        // if case  for buy ******************************************************
+
         if (act == 'b')
         {
-            bool check = false;
-            for (int i = 0; i < sell_update.size(); i++)
-            {
-                if (sell_update[i].first == stock_name)
-                {
-                    if (sell_update[i].second == price)
-                    {
-                        sell_update.erase(sell_update.begin() + i);
-                        cout << "No Trade" << endl;
-                        check = true;
-                        break;
-                    }
-                }
-            }
-            if (check == false)
-            {
-                bool check1 = false;
-                for (int i = 0; i < stock_prices.size(); i++)
-                {
-                    if (stock_prices[i].first == stock_name)
-                    {
-                        if (stock_prices[i].second < price)
-                        {
-                            stock_prices[i].second = price;
-                            cout << stock_name << " "<< price << " s" << endl;
-                        }
-                        else
-                        {
-                            bool c = false;
-                            for (int i = 0; i < buy_update.size(); i++)
-                            {
-                                if (buy_update[i].first == stock_name)
-                                {
-                                    if (buy_update[i].second < price)
-                                    {
-                                        buy_update[i].second = price;
-                                    }
-                                    c = true;
-                                    break;
-                                }
-                            }
-                            if (c == false)
-                            {
-                                buy_update.push_back(make_pair(stock_name, price));
-                            }
-                            cout << "No Trade" << endl;
-                        }
-                        check1 = true;
-                        break;
-                    }
-                }
-                if (check1 == false)
-                {
-                    stock_prices.push_back(make_pair(stock_name, price));
-                    cout << stock_name << " " << price << " s" << endl;
-                }
-            }
-        }
-
-        if (act == 's')
-        {
-            bool check = false;
+            bool ftest = false;
             for (int i = 0; i < buy_update.size(); i++)
             {
                 if (buy_update[i].first == stock_name)
                 {
-                    if (buy_update[i].second == price)
+                    if (buy_update[i].second >= price)
+                    {
+                        cout << "No Trade" << endl;
+                        ftest = true;
+                    }
+                    else if (buy_update[i].second < price)
                     {
                         buy_update.erase(buy_update.begin() + i);
-                        cout << "No Trade" << endl;
-                        check = true;
-                        break;
                     }
+                    break;
                 }
             }
-            if (check == false)
+            if (ftest == false)
             {
-                bool check1 = false;
-                for (int i = 0; i < stock_prices.size(); i++)
+                bool check = false;
+                for (int i = 0; i < sell_update.size(); i++)
                 {
-                    if (stock_prices[i].first == stock_name)
+                    if (sell_update[i].first == stock_name)
                     {
-                        if (stock_prices[i].second > price)
+                        if (sell_update[i].second == price)
                         {
-                            stock_prices[i].second = price;
-                            cout << stock_name << " "<< price << " b" << endl;
-                        }
-                        else
-                        {
-                            bool c = false;
-                            for (int i = 0; i < sell_update.size(); i++)
-                            {
-                                if (sell_update[i].first == stock_name)
-                                {
-                                    if (sell_update[i].second >price)
-                                    {
-                                        sell_update[i].second = price;
-                                    }
-                                    c = true;
-                                    break;
-                                }
-                            }
-                            if (c == false)
-                            {
-                                sell_update.push_back(make_pair(stock_name, price));
-                            }
+                            sell_update.erase(sell_update.begin() + i);
                             cout << "No Trade" << endl;
+                            check = true;
+                            break;
                         }
-                        check1 = true;
-                        break;
                     }
                 }
-                if (check1 == false)
+                if (check == false)
                 {
-                    stock_prices.push_back(make_pair(stock_name, price));
-                    cout << stock_name << " " << price << " b" << endl;
+                    bool check1 = false;
+                    for (int i = 0; i < stock_prices.size(); i++)
+                    {
+                        if (stock_prices[i].first == stock_name)
+                        {
+                            if (stock_prices[i].second < price)
+                            {
+                                stock_prices[i].second = price;
+                                cout << stock_name << " " << price << " s" << endl;
+                            }
+                            else
+                            {
+                                bool c = false;
+                                for (int i = 0; i < buy_update.size(); i++)
+                                {
+                                    if (buy_update[i].first == stock_name)
+                                    {
+                                        if (buy_update[i].second < price)
+                                        {
+                                            buy_update[i].second = price;
+                                        }
+                                        c = true;
+                                        break;
+                                    }
+                                }
+                                if (c == false)
+                                {
+                                    buy_update.push_back(make_pair(stock_name, price));
+                                }
+                                cout << "No Trade" << endl;
+                            }
+                            check1 = true;
+                            break;
+                        }
+                    }
+                    if (check1 == false)
+                    {
+                        stock_prices.push_back(make_pair(stock_name, price));
+                        cout << stock_name << " " << price << " s" << endl;
+                    }
                 }
             }
         }
-        
+
+        // next if case  for sell ******************************************************
+
+        if (act == 's')
+        {
+            bool ftest = false;
+            for (int i = 0; i < sell_update.size(); i++)
+            {
+                if (sell_update[i].first == stock_name)
+                {
+                    if (sell_update[i].second <= price)
+                    {
+                        cout << "No Trade" << endl;
+                        ftest = true;
+                    }
+                    else if (sell_update[i].second > price)
+                    {
+                        sell_update.erase(sell_update.begin() + i);
+                    }
+                    break;
+                }
+            }
+            if (ftest == false)
+            {
+                bool check = false;
+                for (int i = 0; i < buy_update.size(); i++)
+                {
+                    if (buy_update[i].first == stock_name)
+                    {
+                        if (buy_update[i].second == price)
+                        {
+                            buy_update.erase(buy_update.begin() + i);
+                            cout << "No Trade" << endl;
+                            check = true;
+                            break;
+                        }
+                    }
+                }
+                if (check == false)
+                {
+                    bool check1 = false;
+                    for (int i = 0; i < stock_prices.size(); i++)
+                    {
+                        if (stock_prices[i].first == stock_name)
+                        {
+                            if (stock_prices[i].second > price)
+                            {
+                                stock_prices[i].second = price;
+                                cout << stock_name << " " << price << " b" << endl;
+                            }
+                            else
+                            {
+                                bool c = false;
+                                for (int i = 0; i < sell_update.size(); i++)
+                                {
+                                    if (sell_update[i].first == stock_name)
+                                    {
+                                        if (sell_update[i].second > price)
+                                        {
+                                            sell_update[i].second = price;
+                                        }
+                                        c = true;
+                                        break;
+                                    }
+                                }
+                                if (c == false)
+                                {
+                                    sell_update.push_back(make_pair(stock_name, price));
+                                }
+                                cout << "No Trade" << endl;
+                            }
+                            check1 = true;
+                            break;
+                        }
+                    }
+                    if (check1 == false)
+                    {
+                        stock_prices.push_back(make_pair(stock_name, price));
+                        cout << stock_name << " " << price << " b" << endl;
+                    }
+                }
+            }
+        }
     }
 
     // Part 2 Code

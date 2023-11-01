@@ -1,7 +1,7 @@
 Receiver is listening on port 8888
-A 50 b
+A 80 b
 No Trade
 No Trade
 No Trade
 No Trade
-A 60 s
+No Trade
