@@ -244,20 +244,19 @@ int main()
 
     //Part 2 Code
     //A vector would be used to store all the inputs of part2 type till now
-    vector<string> lines;
     vector<pair<vector<pair<string,int>>,pair<int,int>>> overall_stock_info;
     //vector<pair<int, int>> price_and_act_for_allstocks;  
     vector<pair<string, int>> stock_name_code;
     //Input strings are taken just like part1
     int j=0;
-    while(j<lines.size())
+    while(getline(stream, line, '#'))
     {   
         vector<pair<string,int>> current_stock_info;//Here vector<LC,price-signal pair>, LC:vector<stock_code,quantity>
         //overall_stock_info.push_back(current_stock_info);
         int price;
         char act; 
-        istringstream stream(lines[j]);
-        current_stock_info.push_back(make_pair(lines[j],j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
+        istringstream stream(line);
+        current_stock_info.push_back(make_pair(line,j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
         j++;
         
         int no_of_stocks=0;// for number of stocks in the LC 
