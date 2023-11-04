@@ -52,6 +52,8 @@ int main()
 {
     Receiver rcv;
     vector<pair<string, int>> stock_prices; // To keep track of the best prices
+    vector<pair<string, int>> stock_prices_best_buy_price; //to store the best buy order of a stock(for cancellation and other stuff)
+    vector<pair<string, int>> stock_prices_best_sell_price; //to store the best sell order of a stock(for cancellation and other stuff)
     string input_file = rcv.readIML();
     input_file.pop_back(); // remove the $ at the end of the input_file
     string line;
@@ -175,7 +177,7 @@ int main()
                 }
             }
             if (ftest == false)
-            {
+            {   
                 bool check = false;
                 for (int i = 0; i < buy_update.size(); i++)
                 {
@@ -236,6 +238,9 @@ int main()
             }
         }
     }
+
+
+    
 
     //Part 2 Code
     //A vector would be used to store all the inputs of part2 type till now
@@ -349,6 +354,5 @@ int main()
             }
         }
     }
-
     return 0;
 }
