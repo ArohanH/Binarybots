@@ -302,8 +302,10 @@ int main()
         int brk=0;
         for(int i=0;i<overall_stock_info.size()-1;i++){
             if(overall_stock_info[i].first.size()<overall_stock_info[overall_stock_info.size()-1].first.size()){
+                int p=overall_stock_info[i].first.size();
                 while(overall_stock_info[i].first.size()!=overall_stock_info[overall_stock_info.size()-1].first.size()){
-                    overall_stock_info[i].first.push_back(make_pair(,0));
+                    overall_stock_info[i].first.push_back(make_pair(stock_name_code[p-1].first,0));
+                    p++;
                 }
             }
             if(overall_stock_info[i].first==overall_stock_info[overall_stock_info.size()-1].first){
