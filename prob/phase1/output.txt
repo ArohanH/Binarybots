@@ -86,5 +86,3 @@ ASML 100 s
 ASML 80 b
 No Trade
 ASML 70 b
-ASML 100 s
-ASML 80 b
