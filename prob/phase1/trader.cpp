@@ -8,14 +8,16 @@ using namespace std;
 
 vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_all_the_stock_combinations_part_2;
 vector<pair<vector<pair<int,int>>,pair<int,int>>> max_profit_combination; 
-vector<int> max_profit_subset;
-int max_profit;
+//vector<int> max_profit_subset;
+//int max_profit;
 
-void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index){
+void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index, vector<int>& max_profit_subset, int& max_profit){
     subsets_of_all_the_stock_combinations_part_2.push_back(subset);
     //Algorithm for choosing the best subset
     if(!subset.empty()){
         vector<int> sum_of_quantities(subset[0].first.size(),0);
+        cout << max_profit << endl;
+        max_profit++;
         int profit=0;
         for(int i=0; i<subset[0].first.size();i++){
             for(int j=0; j<subset.size();j++){
@@ -41,11 +43,11 @@ void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<
         subset.pop_back();
     }
 }
-void subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A){
+void subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<int>& max_profit_subset, int& max_profit){
     vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
     //vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> res;
     int index=0;
-    calcSubset(A, subset, index);
+    calcSubset(A, subset, index, max_profit_subset, max_profit);
     //return res;
 }
 
@@ -337,9 +339,11 @@ int main()
             cout << "No Trade" << endl;
         }
         else{
-            max_profit_subset.clear();
+            int max_profit;
+            vector<int> max_profit_subset;
+            //max_profit_subset.clear();
             max_profit=-2147483648;
-            subsets(overall_stock_info);//my max
+            subsets(overall_stock_info, max_profit_subset, max_profit);//my max
             if(max_profit==-2147483648){
                 cout << "No Trade" << endl;
             }
