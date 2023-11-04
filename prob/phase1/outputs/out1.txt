@@ -1,13 +1,262 @@
 Receiver is listening on port 8888
-ASML 650 b
+ASML 80 b
 No Trade
-AAPL 430 s
-AAPL 435 s
+ASML 70 b
+ASML 100 s
+ASML 80 b
 No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
 No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
 No Trade
-ASML 651 s
-AAPL 432 b
+ASML 70 b
+ASML 100 s
+ASML 80 b
 No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
 No Trade
-ASML 650 b
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
+ASML 80 b
+No Trade
+ASML 70 b
+ASML 100 s
