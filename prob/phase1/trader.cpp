@@ -11,7 +11,7 @@ void calcSubset(vector<pair<vector<pair<int,int>>,pair<int,int>>>& A, vector<pai
         vector<int> sum_of_quantities(subset[0].first.size(),0);
         int profit=0;
         for(int i=0; i<subset[0].first.size();i++){
-            for(int j=0; j<subset.size()){
+            for(int j=0; j<subset.size();j++){
                 sum_of_quantities[i+1]+=subset[j].first[i+1].second;// i+1, since first pair is (string, stock_number)
                 profit+=subset[j].second.first*subset[j].second.second;
             }
@@ -22,8 +22,8 @@ void calcSubset(vector<pair<vector<pair<int,int>>,pair<int,int>>>& A, vector<pai
             if(max_profit<profit){
                 max_profit=profit;
                 max_profit_subset.clear();//to clear previous data
-                for(int i=0;i<subset.size(),i++){
-                    max_profit_subset.push(subset[i].first[0].second);
+                for(int i=0;i<subset.size();i++){
+                    max_profit_subset.push_back(subset[i].first[0].second);
                 }
             }
         }
@@ -304,7 +304,7 @@ int main()
         for(int i=0;i<overall_stock_info.size()-1;i++){
             if(overall_stock_info[i].first.size()<overall_stock_info[overall_stock_info.size()-1].first.size()){
                 while(overall_stock_info[i].first.size()!=overall_stock_info[overall_stock_info.size()-1].first.size()){
-                    overall_stock_info[i].first.push_back(make_pair(-1,0));
+                    overall_stock_info[i].first.push_back(make_pair(,0));
                 }
             }
             if(overall_stock_info[i].first==overall_stock_info[overall_stock_info.size()-1].first){
