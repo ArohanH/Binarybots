@@ -6,49 +6,26 @@
 
 using namespace std;
 
-vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_all_the_stock_combinations_part_2;
-vector<pair<vector<pair<int,int>>,pair<int,int>>> max_profit_combination; 
+//vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_all_the_stock_combinations_part_2;
+//vector<pair<vector<pair<int,int>>,pair<int,int>>> max_profit_combination; 
 //vector<int> max_profit_subset;
 //int max_profit;
 
-void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index, vector<int>& max_profit_subset, int& max_profit){
-    subsets_of_all_the_stock_combinations_part_2.push_back(subset);
+void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index, vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>>& res){
+    res.push_back(subset);
     //Algorithm for choosing the best subset
-    if(!subset.empty()){
-        vector<int> sum_of_quantities(subset[0].first.size(),0);
-        cout << max_profit << endl;
-        max_profit++;
-        int profit=0;
-        for(int i=0; i<subset[0].first.size();i++){
-            for(int j=0; j<subset.size();j++){
-                sum_of_quantities[i+1]+=subset[j].first[i+1].second;// i+1, since first pair is (string, stock_number)
-                profit+=subset[j].second.first*subset[j].second.second;
-            }
-        }
-        bool allZeros = std::all_of(sum_of_quantities.begin(), sum_of_quantities.end(), [](int element) {
-        return element == 0;});//To Check whether all elements are zero or not
-        if(allZeros){
-            if(max_profit<profit){
-                max_profit=profit;
-                max_profit_subset.clear();//to clear previous data
-                for(int i=0;i<subset.size();i++){
-                    max_profit_subset.push_back(subset[i].first[0].second);
-                }
-            }
-        }
-    }
     for(int i=index; i< A.size(); i++){
         subset.push_back(A[i]);
-        calcSubset(A, subset, i+1);
+        calcSubset(A, subset, i+1, res);
         subset.pop_back();
     }
 }
-void subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<int>& max_profit_subset, int& max_profit){
+void subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A){
     vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
-    //vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> res;
+    vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> res;
     int index=0;
-    calcSubset(A, subset, index, max_profit_subset, max_profit);
-    //return res;
+    calcSubset(A, subset, index, res);
+    return res;
 }
 
 
@@ -343,7 +320,33 @@ int main()
             vector<int> max_profit_subset;
             //max_profit_subset.clear();
             max_profit=-2147483648;
-            subsets(overall_stock_info, max_profit_subset, max_profit);//my max
+            vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info, max_profit_subset, max_profit);//my vector containing all the subsets of the stock
+            for(int i=0;i<subsets_of_the_orders.size();i++){
+                subset=subsets_of_the_orders[i];
+                if(!subset.empty()){
+                    vector<int> sum_of_quantities(subset[0].first.size(),0);
+                    //cout << max_profit << endl;
+                    //max_profit++;
+                    int profit=0;
+                    for(int i=0; i<subset[0].first.size()-1;i++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
+                        for(int j=0; j<subset.size();j++){
+                            sum_of_quantities[i+1]+=subset[j].first[i+1].second;// i+1, since first pair is (string, stock_number)
+                            profit+=subset[j].second.first*subset[j].second.second;
+                        }
+                    }
+                    bool allZeros = std::all_of(sum_of_quantities.begin(), sum_of_quantities.end(), [](int element) {
+                    return element == 0;});//To Check whether all elements are zero or not
+                    if(allZeros){
+                        if(max_profit<profit){
+                            max_profit=profit;
+                            max_profit_subset.clear();//to clear previous data
+                            for(int i=0;i<subset.size();i++){
+                                max_profit_subset.push_back(subset[i].first[0].second);
+                            }
+                        }
+                    }
+                }
+            }
             if(max_profit==-2147483648){
                 cout << "No Trade" << endl;
             }
