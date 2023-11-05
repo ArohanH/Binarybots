@@ -320,9 +320,9 @@ int main()
             vector<int> max_profit_subset;
             //max_profit_subset.clear();
             max_profit=-2147483648;
-            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info, max_profit_subset, max_profit);//my vector containing all the subsets of the stock
+            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info);//my vector containing all the subsets of the stock
             for(int i=0;i<subsets_of_the_orders.size();i++){
-                subset=subsets_of_the_orders[i];
+                vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
                 if(!subset.empty()){
                     vector<int> sum_of_quantities(subset[0].first.size(),0);
                     //cout << max_profit << endl;
