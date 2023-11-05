@@ -353,12 +353,12 @@ int main()
             else{
                 int iter=0;
                 for(int i=0;i<overall_stock_info.size();i++){
+                    if(iter==max_profit_subset.size()){
+                        break;
+                    }
                     if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
                         iter++;
                         cout << overall_stock_info[i].first[0].first << '#' << endl;
-                    }
-                    if(iter==max_profit_subset.size()){
-                        break;
                     }
                 }
             }
