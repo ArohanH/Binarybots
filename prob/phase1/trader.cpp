@@ -22,7 +22,7 @@ void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<
 }
 vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A){
     vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
-    vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> res;
+    vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> res;
     int index=0;
     calcSubset(A, subset, index, res);
     return res;
@@ -320,7 +320,7 @@ int main()
             vector<int> max_profit_subset;
             //max_profit_subset.clear();
             max_profit=-2147483648;
-            vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info, max_profit_subset, max_profit);//my vector containing all the subsets of the stock
+            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info, max_profit_subset, max_profit);//my vector containing all the subsets of the stock
             for(int i=0;i<subsets_of_the_orders.size();i++){
                 subset=subsets_of_the_orders[i];
                 if(!subset.empty()){
