@@ -20,7 +20,7 @@ void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<
         subset.pop_back();
     }
 }
-void subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A){
+vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A){
     vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
     vector<vector<pair<vector<pair<int,int>>,pair<int,int>>>> res;
     int index=0;
