@@ -235,13 +235,14 @@ int main()
         int price;
         char act; 
         istringstream stream(line);
+        //std::cout<<line <<std::endl;
         current_stock_info.push_back(make_pair(line,j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
         j++;
         
         int no_of_stocks=0;// for number of stocks in the LC 
         vector<pair<int, int>> k_values_and_quantity; 
         while(stream){
-            int k=0; //variable to be used for stock_name_code
+            int k=-1; //variable to be used for stock_name_code
             string stock_name;
             string q;
             stream >> stock_name >> q;
@@ -259,7 +260,7 @@ int main()
                     break;
                 }
             }
-            if(k==0){
+            if(k==-1){
                 stock_name_code.push_back(make_pair(stock_name,stock_name_code.size()));
                 k=stock_name_code.size()-1;
             }
@@ -277,6 +278,12 @@ int main()
         else overall_stock_info.push_back(make_pair(current_stock_info,make_pair(price,-1)));// -1 for sell
         //overall_stock_info.push_back(current_stock_info);
         //algorithm to do the trade
+
+
+        for(int i=0;i<current_stock_info.size();i++){
+            //std::cout << current_stock_info[i].first << current_stock_info[i].second << std::endl;
+        }
+        
         int brk=0;
         for(int i=0;i<overall_stock_info.size()-1;i++){
             if(overall_stock_info[i].first.size()<overall_stock_info[overall_stock_info.size()-1].first.size()){
@@ -319,7 +326,7 @@ int main()
             int max_profit;
             vector<int> max_profit_subset;
             //max_profit_subset.clear();
-            max_profit=-2147483648;
+            max_profit=0;
             vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info);//my vector containing all the subsets of the stock
             for(int i=0;i<subsets_of_the_orders.size();i++){
                 vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
@@ -330,7 +337,10 @@ int main()
                     int profit=0;
                     for(int k=0; k<subset[0].first.size()-1;k++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
                         for(int j=0; j<subset.size();j++){
-                            std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
+                            //std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
+                            //std::cout << profit << std::endl;
+                            //std::cout << k << std::endl;
+                            //std::cout << j << std::endl;
                             sum_of_quantities[k+1]+=subset[j].first[k+1].second;// k+1, since first pair is (string, stock_number)
                             profit+=subset[j].second.first*subset[j].second.second;
                         }
@@ -348,7 +358,7 @@ int main()
                     }
                 }
             }
-            if(max_profit==-2147483648){
+            if(max_profit==0){
                 cout << "No Trade" << endl;
             }
             else{
