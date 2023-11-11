@@ -1,18 +1,22 @@
 #include <iostream>
-#include <vector>
-#include<string>
+#include <string>
 using namespace std;
-int main() {
-    // std::vector<int> numbers = {1, 2, 3, 4, 5};
-    
-    // // Remove the element at index 2 (3rd element)
-    // numbers.erase(numbers.begin() + 2);
+bool endsWith(const std::string& str, const std::string& suffix) {
+    if (suffix.size() > str.size()) {
+        return false;
+    }
 
-    // for (int num : numbers) {
-    //     std::cout << num << " ";
-    // }
-    string a,b;
-    cin>>a>>b;
-    cout<<a<<endl<<b;
+    return str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+}
+
+int main() {
+    std::string input_file = "some_string$";
+
+    if(endsWith(input_file, "$")) {
+        cout<<"hello"<<endl;
+    }
+    cout<<input_file;
+    // Handle any post-loop logic here
+
     return 0;
 }
