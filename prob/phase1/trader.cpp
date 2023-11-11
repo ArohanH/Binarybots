@@ -387,8 +387,8 @@ int main()
                     }
                     if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
                         iter++;
-                        cout << overall_stock_info[i].first[0].first << '#' << endl;
-                        overall_stock_info.erase(overall_stock_info.begin()+i);
+                        cout << overall_stock_info[i].first[0].first << '#';
+                        //overall_stock_info.erase(overall_stock_info.begin()+i);
                     }
                 }
             }
