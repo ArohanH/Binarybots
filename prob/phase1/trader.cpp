@@ -356,7 +356,7 @@ int main()
                             //std::cout << profit << std::endl;
                             //std::cout << k << std::endl;
                             //std::cout << j << std::endl;
-                            sum_of_quantities[k+1]+=subset[j].first[k+1].second;// k+1, since first pair is (string, stock_number)
+                            sum_of_quantities[k+1]+=subset[j].first[k+1].second*subset[j].second.second;// k+1, since first pair is (string, stock_number)
                             //std::cout << subset[j].second.first<< endl;
                             //std::cout << subset[j].second.second << endl;
                             //std::cout << subset[j].second.first*subset[j].second.second << endl;
