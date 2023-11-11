@@ -328,9 +328,10 @@ int main()
                     //cout << max_profit << endl;
                     //max_profit++;
                     int profit=0;
-                    for(int i=0; i<subset[0].first.size()-1;i++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
+                    for(int k=0; k<subset[0].first.size()-1;k++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
                         for(int j=0; j<subset.size();j++){
-                            sum_of_quantities[i+1]+=subset[j].first[i+1].second;// i+1, since first pair is (string, stock_number)
+                            std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
+                            sum_of_quantities[k+1]+=subset[j].first[k+1].second;// k+1, since first pair is (string, stock_number)
                             profit+=subset[j].second.first*subset[j].second.second;
                         }
                     }
