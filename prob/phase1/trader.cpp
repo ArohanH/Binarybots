@@ -250,7 +250,9 @@ int main()
             if(q=="b"||q=="s"){
                 if(q=="b") act='b';
                 else act='s';
-                int price=stoi(stock_name);
+                //std::cout << stock_name << endl;
+                price=stoi(stock_name);
+                //std::cout << price << endl;
                 break;
             }
             int quantity=stoi(q);
@@ -274,6 +276,7 @@ int main()
             current_stock_info[k_values_and_quantity[i].first+1]=make_pair(stock_name_code[k_values_and_quantity[i].first].first,k_values_and_quantity[i].second);
             //current_stock_info[2*k_values_and_quantity[i].first+2]=k_values_and_quantity[i].second;
         }
+        //std::cout << price << "Yo" << endl;
         if(act=='b') overall_stock_info.push_back(make_pair(current_stock_info,make_pair(price,1)));// 1 for buy
         else overall_stock_info.push_back(make_pair(current_stock_info,make_pair(price,-1)));// -1 for sell
         //overall_stock_info.push_back(current_stock_info);
@@ -286,6 +289,7 @@ int main()
         
         int brk=0;
         for(int i=0;i<overall_stock_info.size()-1;i++){
+            //std::cout << overall_stock_info[i].second.first << "Hello" << endl;
             if(overall_stock_info[i].first.size()<overall_stock_info[overall_stock_info.size()-1].first.size()){
                 int p=overall_stock_info[i].first.size();
                 while(overall_stock_info[i].first.size()!=overall_stock_info[overall_stock_info.size()-1].first.size()){
@@ -293,29 +297,40 @@ int main()
                     p++;
                 }
             }
+        }
+        for(int i=0;i<overall_stock_info.size()-1;i++){
             if(overall_stock_info[i].first==overall_stock_info[overall_stock_info.size()-1].first){
                 if(overall_stock_info[i].second.second==overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.second==1 && overall_stock_info[i].second.first>overall_stock_info[overall_stock_info.size()-1].second.first){ //better buy price and the current order cancelled
                     //overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
                     brk=1;
+                    break;
                 }
                 else if(overall_stock_info[i].second.second==overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.second==1 && overall_stock_info[i].second.first<=overall_stock_info[overall_stock_info.size()-1].second.first){ //better buy price and the previous order cancelled
                     overall_stock_info.erase(overall_stock_info.begin()+i);
+                    break;
                     //overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
                 }
                 else if(overall_stock_info[i].second.second==overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.second==-1 && overall_stock_info[i].second.first<overall_stock_info[overall_stock_info.size()-1].second.first){ //better sell price and the current order cancelled
                     //overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
                     brk=1;
+                    break;
                 }
                 else if(overall_stock_info[i].second.second==overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.second==-1 && overall_stock_info[i].second.first>=overall_stock_info[overall_stock_info.size()-1].second.first){ //better sell price and the previous order cancelled
                     overall_stock_info.erase(overall_stock_info.begin()+i);
+                    break;
                     //overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
                 }
-                else if(overall_stock_info[i].second.second==-overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.first==-overall_stock_info[overall_stock_info.size()-1].second.first){ //buy-sell cancellation of same LC with same price
+            }
+        }
+        if(brk==0){
+            for(int i=0;i<overall_stock_info.size()-1;i++){
+                if(overall_stock_info[i].second.second==-overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.first==-overall_stock_info[overall_stock_info.size()-1].second.first){ //buy-sell cancellation of same LC with same price
                     overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
                     brk=1;
+                    break;
                 }    
             }
         }
@@ -342,6 +357,9 @@ int main()
                             //std::cout << k << std::endl;
                             //std::cout << j << std::endl;
                             sum_of_quantities[k+1]+=subset[j].first[k+1].second;// k+1, since first pair is (string, stock_number)
+                            //std::cout << subset[j].second.first<< endl;
+                            //std::cout << subset[j].second.second << endl;
+                            //std::cout << subset[j].second.first*subset[j].second.second << endl;
                             profit+=subset[j].second.first*subset[j].second.second;
                         }
                     }
@@ -370,6 +388,7 @@ int main()
                     if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
                         iter++;
                         cout << overall_stock_info[i].first[0].first << '#' << endl;
+                        overall_stock_info.erase(overall_stock_info.begin()+i);
                     }
                 }
             }
