@@ -381,6 +381,7 @@ int main()
             }
             else{
                 int iter=0;
+                //int size_fixed=overall_stock_info.size();
                 for(int i=0;i<overall_stock_info.size();i++){
                     if(iter==max_profit_subset.size()){
                         break;
@@ -388,7 +389,8 @@ int main()
                     if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
                         iter++;
                         cout << overall_stock_info[i].first[0].first << '#';
-                        //overall_stock_info.erase(overall_stock_info.begin()+i);
+                        overall_stock_info.erase(overall_stock_info.begin()+i);
+                        i--;
                     }
                 }
             }
