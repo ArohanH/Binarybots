@@ -597,14 +597,14 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         //cout<< overall_stock_info_part_3[i].first.second.second << endl;
                         if(overall_stock_info_part_3[i].first.second.second==1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " s" << '#';
                         }
                         else if(overall_stock_info_part_3[i].first.second.second==-1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " b" << '#';
                         }
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter--;
-                        cout << endl;
+                        //cout << endl;
                         if(overall_stock_info_part_3[i].second==0){
                             overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                             i++;
