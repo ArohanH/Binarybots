@@ -15,7 +15,7 @@ using namespace std;
 void calcSubset(vector<pair<vector<pair<string,int>>,pair<int,int>>>& A, vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index, vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>>& res){
     res.push_back(subset);
     //Algorithm for choosing the best subset
-    for(int i=index; i< A.size(); i++){
+    for(int i=index; i<A.size(); i++){
         subset.push_back(A[i]);
         calcSubset(A, subset, i+1, res);
         subset.pop_back();
@@ -28,6 +28,37 @@ vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets(vector<pair
     calcSubset(A, subset, index, res);
     return res;
 }
+
+void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>>& tuples, vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>>& res,
+                            vector<pair<vector<pair<string,int>>,pair<int,int>>>>& subset, int index)
+{
+    // Add the current subset to the result list
+    res.push_back(subset);
+
+    // Generate subsets by recursively including and excluding elements
+    for (int i = index; i < tuples.size(); i++) {
+        for (int j = 1; j <= tuples[i].second; j++) {
+            // Include the current element in the subset 'j' times
+            subset.push_back(tuples[i].first);
+
+            // Recursively generate subsets with the current element included 'j' times
+            calcSubsetWithQuantity(tuples, res, subset, i + 1);
+
+            // Exclude the current element from the subset 'j' times (backtracking)
+            subset.pop_back();
+        }
+    }
+}
+
+vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsetsWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>> tuples)
+{
+    vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
+    vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> res;
+    int index = 0;
+    calcSubsetWithQuantity(tuples, res, subset, index);
+    return res;
+}
+
 
 bool isNumber(string s)
 {
@@ -539,13 +570,13 @@ int main()
             vector<pair<int,int>> max_profit_subset;//(line number, quantity)
             //max_profit_subset.clear();
             max_profit=0;
-            vector<pair<vector<pair<string,int>>,pair<int,int>>> overall_stock_info_part_3_order_splits;//for splitting orders 
-            for(int q=0;q<overall_stock_info_part_3.size();q++){
-                for(int r=0;r<overall_stock_info_part_3[q].second;r++){
-                    overall_stock_info_part_3_order_splits.push_back(overall_stock_info_part_3[q].first);
-                }
-            }
-            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info_part_3_order_splits);//my vector containing all the subsets of the stock
+            //vector<pair<vector<pair<string,int>>,pair<int,int>>> overall_stock_info_part_3_order_splits;//for splitting orders 
+            //for(int q=0;q<overall_stock_info_part_3.size();q++){
+            //    for(int r=0;r<overall_stock_info_part_3[q].second;r++){
+            //        overall_stock_info_part_3_order_splits.push_back(overall_stock_info_part_3[q].first);
+            //    }
+            //}
+            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info_part_3);//my vector containing all the subsets of the stock
             for(int i=0;i<subsets_of_the_orders.size();i++){
                 vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
                 if(!subset.empty()){
@@ -608,7 +639,7 @@ int main()
                         if(overall_stock_info_part_3[i].second==0){
                             overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                             i++;
-                        }
+                        } 
                     }
                 }
             }
