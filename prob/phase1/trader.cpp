@@ -412,7 +412,7 @@ int main()
     //Part3 Code 
     vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>> overall_stock_info_part_3;
     //vector<pair<int, int>> price_and_act_for_allstocks;  
-    vector<pair<string, int>> stock_name_code_part_3;
+    vector<pair<string, int>> stock_name_code;
     //Input strings are taken just like part1
     int j=0;
     while(getline(stream, line, '#'))
@@ -495,7 +495,7 @@ int main()
             }
         }
         for(int i=0;i<overall_stock_info_part_3.size()-1;i++){
-            if(overall_stock_info_part_3[i].first[0].first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first[0].first){
+            if(overall_stock_info_part_3[i].first.first[0].first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.first[0].first){
                 if(overall_stock_info_part_3[i].first.second.second==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.second && overall_stock_info_part_3[i].first.second.second==1 && overall_stock_info_part_3[i].first.second.first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.first){ //same type of buy order quantities added
                     //overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second+= overall_stock_info_part_3[i].second;
@@ -503,7 +503,7 @@ int main()
                     brk=0;
                     break;
                 }
-                else if(overall_stock_info_part_3[i].second.second==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second.second && overall_stock_info_part_3[i].first.second.second==-1 && overall_stock_info_part_3[i]first.second.first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.first){ //same type of sell order quantities added 
+                else if(overall_stock_info_part_3[i].first.second.second==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.second && overall_stock_info_part_3[i].first.second.second==-1 && overall_stock_info_part_3[i].first.second.first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.first){ //same type of sell order quantities added 
                     //overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second+= overall_stock_info_part_3[i].second;
                     overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
@@ -511,7 +511,7 @@ int main()
                     break;
                 }
                 else if(overall_stock_info_part_3[i].first.second.second==-overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.second && overall_stock_info_part_3[i].first.second.first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.first){ //buy-sell cancellation and new quantity generation of same LC with same price
-                    if(overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second=>overall_stock_info_part_3[i].second){
+                    if(overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second>=overall_stock_info_part_3[i].second){
                         overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second-= overall_stock_info_part_3[i].second;
                         overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                     }
@@ -586,14 +586,14 @@ int main()
             else{
                 int iter=0;
                 //int size_fixed=overall_stock_info.size();
-                for(int i=0;i<overall_stock_info.size();i++){
+                for(int i=0;i<overall_stock_info_part_3.size();i++){
                     if(iter==max_profit_subset.size()){
                         break;
                     }
-                    if(max_profit_subset[iter].first==overall_stock_info[i].first[0].second){
+                    if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         iter++;
-                        cout << overall_stock_info[i].first[0].first << '#';
-                        overall_stock_info.erase(overall_stock_info.begin()+i);
+                        cout << overall_stock_info_part_3[i].first.first[0].first << '#';
+                        overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                         i--;
                     }
                 }
