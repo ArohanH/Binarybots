@@ -596,10 +596,11 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter++;
-                        if(overall_stock_info_part_3[i].first.second.second=='b'){
+                        //cout << overall_stock_info_part_3[i].first.second.second << endl;
+                        if(overall_stock_info_part_3[i].first.second.second==1){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b " << '#';
                         }
-                        else if(overall_stock_info_part_3[i].first.second.second=='s'){
+                        else if(overall_stock_info_part_3[i].first.second.second==-1){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s " << '#';
                         }
                         if(overall_stock_info_part_3[i].second==0){
