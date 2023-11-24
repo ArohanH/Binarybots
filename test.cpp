@@ -62,7 +62,7 @@ void mergeSort(vector<pair<int, int>>& arr, int left, int right) {
 
 int main() {
     // Example usage
-    vector<pair<int, int>> vec = {{0, 5}, {1, 8}, {2, 3}, {4, 1}, {6, 7}};
+    vector<pair<int, int>> vec = {{9, 5}, {1, 8}, {2, 3}, {4, 1}, {6, 7}};
     
     // Calculate the size of the vector
 
