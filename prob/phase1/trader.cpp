@@ -426,7 +426,7 @@ int main()
         char act; 
         istringstream stream(line);
         //std::cout<<line <<std::endl;
-        current_stock_info.push_back(make_pair(line.substr(0,line.length()-4),j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
+        current_stock_info.push_back(make_pair(line/*.substr(0,line.length()-4)*/,j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
         j++;
         
         int no_of_stocks=0;// for number of stocks in the LC 
