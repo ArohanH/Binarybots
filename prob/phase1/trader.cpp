@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 
 using namespace std;
@@ -426,7 +427,7 @@ int main()
         char act; 
         istringstream stream(line);
         //std::cout<<line <<std::endl;
-        current_stock_info.push_back(make_pair(line/*.substr(0,line.length()-4)*/,j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
+        current_stock_info.push_back(make_pair(line.substr(0,line.length()-4),j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
         j++;
         
         int no_of_stocks=0;// for number of stocks in the LC 
@@ -596,13 +597,14 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter++;
-                        //cout << overall_stock_info_part_3[i].first.second.second << endl;
+                        //cout<< overall_stock_info_part_3[i].first.second.second << endl;
                         if(overall_stock_info_part_3[i].first.second.second==1){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b " << '#';
                         }
                         else if(overall_stock_info_part_3[i].first.second.second==-1){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s " << '#';
                         }
+                        cout << endl;
                         if(overall_stock_info_part_3[i].second==0){
                             overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                             i--;
