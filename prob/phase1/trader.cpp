@@ -31,6 +31,8 @@ vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets(vector<pair
 bool isNumber(string s)
 {
     for (int i = 0; i < s.length(); i++){
+        if(s[i]=='-') continue;
+        //std::cout<<s[i]<<endl;
         if (isdigit(s[i]) == false)
             return false;
     }
@@ -436,6 +438,7 @@ int main()
             stream >> stock_name >> q;
            
             if(isNumber(stock_name)){
+                std::cout << stock_name << endl;
                 price=stoi(stock_name);
                 net_quantity=stoi(q);
                 stream >> act;
@@ -515,7 +518,7 @@ int main()
                         overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second-= overall_stock_info_part_3[i].second;
                         overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
                     }
-                    if(overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second<overall_stock_info_part_3[i].second){
+                    else if(overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second<overall_stock_info_part_3[i].second){
                         overall_stock_info_part_3[i].second-= overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second;
                         overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+overall_stock_info_part_3.size()-1);
                     }
@@ -537,7 +540,7 @@ int main()
             max_profit=0;
             vector<pair<vector<pair<string,int>>,pair<int,int>>> overall_stock_info_part_3_order_splits;//for splitting orders 
             for(int q=0;q<overall_stock_info_part_3.size();q++){
-                for(int r=0;r<overall_stock_info_part_3[q].second;q++){
+                for(int r=0;r<overall_stock_info_part_3[q].second;r++){
                     overall_stock_info_part_3_order_splits.push_back(overall_stock_info_part_3[q].first);
                 }
             }

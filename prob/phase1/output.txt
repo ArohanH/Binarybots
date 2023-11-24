@@ -1,1 +1,5 @@
 Receiver is listening on port 8888
+10
+No Trade
+-15
+No Trade
