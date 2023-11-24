@@ -576,7 +576,7 @@ int main()
             //        overall_stock_info_part_3_order_splits.push_back(overall_stock_info_part_3[q].first);
             //    }
             //}
-            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsets(overall_stock_info_part_3);//my vector containing all the subsets of the stock
+            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsetsWithQuantity(overall_stock_info_part_3);//my vector containing all the subsets of the stock
             for(int i=0;i<subsets_of_the_orders.size();i++){
                 vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
                 if(!subset.empty()){
