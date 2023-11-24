@@ -453,7 +453,7 @@ int main()
             //     //std::cout << price << endl;
             //     break;
             // }
-            
+            //std::cout << current_stock_info[0].first << endl;
             int quantity=stoi(q);
             for(int i=0;i<stock_name_code.size();i++){
                 if(stock_name_code[i].first==stock_name){
@@ -596,16 +596,16 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter++;
-                        if(overall_stock_info_part_3[i].first.second.second=="b"){
+                        if(overall_stock_info_part_3[i].first.second.second=='b'){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b " << '#';
                         }
-                        else if(overall_stock_info_part_3[i].first.second.second=="s"){
+                        else if(overall_stock_info_part_3[i].first.second.second=='s'){
                             cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s " << '#';
                         }
                         if(overall_stock_info_part_3[i].second==0){
                             overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
+                            i--;
                         }
-                        i--;
                     }
                 }
             }
