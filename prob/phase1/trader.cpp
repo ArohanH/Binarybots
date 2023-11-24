@@ -588,26 +588,26 @@ int main()
                 cout << "No Trade" << endl;
             }
             else{
-                int iter=0;
+                int iter=max_profit_subset.size()-1;
                 //int size_fixed=overall_stock_info.size();
-                for(int i=0;i<overall_stock_info_part_3.size();i++){
-                    if(iter==max_profit_subset.size()){
+                for(int i=overall_stock_info_part_3.size()-1;i>=0;i--){
+                    if(iter==-1){
                         break;
                     }
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
-                        overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
-                        iter++;
                         //cout<< overall_stock_info_part_3[i].first.second.second << endl;
                         if(overall_stock_info_part_3[i].first.second.second==1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b " << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " b" << '#';
                         }
                         else if(overall_stock_info_part_3[i].first.second.second==-1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s " << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << overall_stock_info_part_3[i].second << " s" << '#';
                         }
+                        overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
+                        iter--;
                         cout << endl;
                         if(overall_stock_info_part_3[i].second==0){
                             overall_stock_info_part_3.erase(overall_stock_info_part_3.begin()+i);
-                            i--;
+                            i++;
                         }
                     }
                 }
