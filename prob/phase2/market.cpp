@@ -169,10 +169,6 @@ void mergeSort1(vector<pair<vector<int>, string>> &arr, int l, int r)
     }
 }
 
-
-
-
-
 //////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////
@@ -220,10 +216,6 @@ void market::start()
             time = timestamp;
         }
 
-
-
-
-///////////////////////////////////////////////
         if (ordertype == "BUY")
         {
             pair<vector<int>, pair<string, pair<vector<pair<int, int>>, vector<int>>>> buy_temp;
@@ -232,6 +224,7 @@ void market::start()
             buy_temp.second.first = clientname;
             bool flag1 = false;
             bool flag2 = false;
+            string printout;
             while (iss >> stockname)
             {
                 if (stockname[0] == '$')
@@ -271,6 +264,7 @@ void market::start()
                 {
                     stockquantity = stoi(stock_quantity);
                 }
+                printout+=stockname+" "+to_string(stockquantity)+" ";
                 buy_temp.second.second.first.push_back(make_pair(hash_val, stockquantity));
                 if (flag2)
                 {
@@ -327,21 +321,25 @@ void market::start()
                     }
                 }
             }
-            mergeSort1(index, 0, index.size() - 1);
+            if (index.size() > 0)
+            {
+                mergeSort1(index, 0, index.size() - 1);
+            }
             for (int i = 0; i < index.size(); i++)
             {
-                int t = index[0].first[2];
+                int t = index[i].first[2];
                 if (buy_temp.second.second.second[1] >= sell[t].second.second.second[1])
                 {
                     buy_temp.second.second.second[1] = buy_temp.second.second.second[1] - sell[t].second.second.second[1];
-                    cout << "to be filled"<<endl;
+                    cout <<buy_temp.second.first<<" purchased "<<sell[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
                     sell[t].second.second.second[1] = 0;
                     sell[t].first[0] = 0;
                 }
                 else
                 {
-                    buy_temp.second.second.second[1] = 0;
                     sell[t].second.second.second[1] = sell[t].second.second.second[1] - buy_temp.second.second.second[1];
+                    cout <<buy_temp.second.first<<" purchased "<<buy_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
+                    buy_temp.second.second.second[1] = 0;
                     buy_temp.first[0] = 0;
                     break;
                 }
@@ -353,7 +351,6 @@ void market::start()
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
         if (ordertype == "SELL")
@@ -364,6 +361,7 @@ void market::start()
             sell_temp.second.first = clientname;
             bool flag1 = false;
             bool flag2 = false;
+            string printout;
             while (iss >> stockname)
             {
                 if (stockname[0] == '$')
@@ -403,6 +401,7 @@ void market::start()
                 {
                     stockquantity = stoi(stock_quantity);
                 }
+                printout+=stockname+" "+to_string(stockquantity)+" ";
                 sell_temp.second.second.first.push_back(make_pair(hash_val, stockquantity));
                 if (flag2)
                 {
@@ -459,21 +458,25 @@ void market::start()
                     }
                 }
             }
-            mergeSort1(index, 0, index.size() - 1);
+            if (index.size() > 0)
+            {
+                mergeSort1(index, 0, index.size() - 1);
+            }
             for (int i = 0; i < index.size(); i++)
             {
-                int t = index[0].first[2];
+                int t = index[i].first[2];
                 if (sell_temp.second.second.second[1] >= buy[t].second.second.second[1])
                 {
                     sell_temp.second.second.second[1] = sell_temp.second.second.second[1] - buy[t].second.second.second[1];
-                    cout << "to be filled"<<endl;
+                    cout <<buy[t].second.first<<" purchased "<<buy[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
                     buy[t].second.second.second[1] = 0;
                     buy[t].first[0] = 0;
                 }
                 else
                 {
-                    sell_temp.second.second.second[1] = 0;
                     buy[t].second.second.second[1] = buy[t].second.second.second[1] - sell_temp.second.second.second[1];
+                    cout <<buy[t].second.first<<" purchased "<<sell_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
+                    sell_temp.second.second.second[1] = 0;
                     sell_temp.first[0] = 0;
                     break;
                 }

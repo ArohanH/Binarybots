@@ -18,6 +18,11 @@ TL
 !@
 @!
 Successfully Initiated!
-to be filled
-to be filled
-to be filled
+KarGoKrab purchased 12 share of AMZN 1 from KarGoCorp for $100/share
+KarGoCorp purchased 5 share of AMZN 1 from KarGoCorp for $50/share
+KarGoCorp purchased 20 share of GE 1 from KarGoExpress for $200/share
+KarGoKrab purchased 10 share of AMD 1 from KarGoExpress for $130/share
+KarGoTravels purchased 50 share of AMD 1 from KarGoExpress for $100/share
+KarGoCorp purchased 22 share of AMZN 1 from KarGoTravels for $50/share
+KarGoCorp purchased 10 share of AMD 1 from KarGoExpress for $80/share
+KarGoKrab purchased 10 share of GE 1 from KarGoCorp for $50/share
