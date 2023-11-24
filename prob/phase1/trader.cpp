@@ -413,8 +413,8 @@ int main()
     //                     if(max_profit<profit){
     //                         max_profit=profit;
     //                         max_profit_subset.clear();//to clear previous data
-    //                         for(int i=0;i<subset.size();i++){
-    //                             max_profit_subset.push_back(subset[i].first[0].second);
+    //                         for(int z=0;z<subset.size();z++){
+    //                             max_profit_subset.push_back(subset[z].first[0].second);
     //                         }
     //                     }
     //                 }
@@ -424,17 +424,17 @@ int main()
     //             cout << "No Trade" << endl;
     //         }
     //         else{
-    //             int iter=0;
+    //             int iter=max_profit_subset.size()-1;
     //             //int size_fixed=overall_stock_info.size();
-    //             for(int i=0;i<overall_stock_info.size();i++){
+    //             for(int i=overall_stock_info.size()-1;i>=0;i--){
     //                 if(iter==max_profit_subset.size()){
     //                     break;
     //                 }
     //                 if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
-    //                     iter++;
+    //                     iter--;
     //                     cout << overall_stock_info[i].first[0].first << '#';
     //                     overall_stock_info.erase(overall_stock_info.begin()+i);
-    //                     i--;
+    //                     i++;
     //                 }
     //             }
     //         }
@@ -603,11 +603,11 @@ int main()
                         if(max_profit<profit){
                             max_profit=profit;
                             max_profit_subset.clear();//to clear previous data
-                            for(int i=0;i<subset.size();i++){
+                            for(int z=0;z<subset.size();z++){
                                 int max_profit_quantity=1;
                                 while(subset[i]==subset[i+1]){
                                     max_profit_quantity++;
-                                    i++;
+                                    z++;
                                 }
                                 max_profit_subset.push_back(make_pair(subset[i].first[0].second,max_profit_quantity));
                             }
