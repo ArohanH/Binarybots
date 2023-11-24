@@ -170,6 +170,71 @@ void mergeSort1(vector<pair<vector<int>, string>> &arr, int l, int r)
 }
 
 //////////////////////////////////////////////////////////////////////
+bool customComparator2(const pair<vector<int>, string> &a, const pair<vector<int>, string> &b) {
+    // Sort based on vector<int>[0]
+    if (a.first[0] != b.first[0]) {
+        return a.first[0] < b.first[0];
+    }
+
+    // Sort based on vector<int>[1]
+    if (a.first[1] != b.first[1]) {
+        return a.first[1] < b.first[1];
+    }
+
+    // Sort based on string in increasing alphabetical order
+    return a.second < b.second;
+}
+
+void merge2(vector<pair<vector<int>, string>> &arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    vector<pair<vector<int>, string>> L(n1);
+    vector<pair<vector<int>, string>> R(n2);
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (customComparator2(L[i], R[j])) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort2(vector<pair<vector<int>, string>> &arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        mergeSort2(arr, l, m);
+        mergeSort2(arr, m + 1, r);
+
+        merge2(arr, l, m, r);
+    }
+}
+
+
+
 
 ////////////////////////////////////////////////////////////////////
 void market::start()
@@ -285,6 +350,9 @@ void market::start()
             iss >> q >> period;
             q.erase(q.begin());
             quantity = stoi(q);
+            if(quantity==0){
+                break;
+            }
             buy_temp.second.second.second.push_back(price);
             buy_temp.second.second.second.push_back(quantity);
             if (period == -1)
@@ -323,17 +391,17 @@ void market::start()
             }
             if (index.size() > 0)
             {
-                mergeSort1(index, 0, index.size() - 1);
+                mergeSort2(index, 0, index.size() - 1);
             }
             for (int i = 0; i < index.size(); i++)
             {
                 int t = index[i].first[2];
-                if (buy_temp.second.second.second[1] >= sell[t].second.second.second[1])
+                if (buy_temp.second.second.second[1] > sell[t].second.second.second[1])
                 {
                     buy_temp.second.second.second[1] = buy_temp.second.second.second[1] - sell[t].second.second.second[1];
                     cout <<buy_temp.second.first<<" purchased "<<sell[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
                     sell[t].second.second.second[1] = 0;
-                    sell[t].first[0] = 0;
+                    sell[t].first[0]=0;
                 }
                 else
                 {
@@ -341,6 +409,9 @@ void market::start()
                     cout <<buy_temp.second.first<<" purchased "<<buy_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
                     buy_temp.second.second.second[1] = 0;
                     buy_temp.first[0] = 0;
+                    if(sell[t].second.second.second[1]==0){
+                        sell[t].first[0]=0;
+                    }
                     break;
                 }
             }
@@ -422,6 +493,9 @@ void market::start()
             iss >> q >> period;
             q.erase(q.begin());
             quantity = stoi(q);
+            if(quantity==0){
+                break;
+            }
             sell_temp.second.second.second.push_back(price);
             sell_temp.second.second.second.push_back(quantity);
             if (period == -1)
@@ -465,12 +539,12 @@ void market::start()
             for (int i = 0; i < index.size(); i++)
             {
                 int t = index[i].first[2];
-                if (sell_temp.second.second.second[1] >= buy[t].second.second.second[1])
+                if (sell_temp.second.second.second[1] > buy[t].second.second.second[1])
                 {
                     sell_temp.second.second.second[1] = sell_temp.second.second.second[1] - buy[t].second.second.second[1];
                     cout <<buy[t].second.first<<" purchased "<<buy[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
                     buy[t].second.second.second[1] = 0;
-                    buy[t].first[0] = 0;
+                    buy[t].first[0]=0;
                 }
                 else
                 {
@@ -478,6 +552,9 @@ void market::start()
                     cout <<buy[t].second.first<<" purchased "<<sell_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
                     sell_temp.second.second.second[1] = 0;
                     sell_temp.first[0] = 0;
+                    if(buy[t].second.second.second[1]==0){
+                        buy[t].first[0]=0;
+                    }
                     break;
                 }
             }
@@ -487,4 +564,7 @@ void market::start()
             }
         }
     }
+    cout<<endl;
+    cout<<"---End of Day--- "<<endl;
+
 }

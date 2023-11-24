@@ -30,7 +30,7 @@ vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets(vector<pair
 }
 
 void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>>& tuples, vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>>& res,
-                            vector<pair<vector<pair<string,int>>,pair<int,int>>>>& subset, int index)
+                            vector<pair<vector<pair<string,int>>,pair<int,int>>>& subset, int index)
 {
     // Add the current subset to the result list
     res.push_back(subset);
@@ -628,10 +628,10 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         //cout<< overall_stock_info_part_3[i].first.second.second << endl;
                         if(overall_stock_info_part_3[i].first.second.second==1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " s" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " s" << '#';
                         }
                         else if(overall_stock_info_part_3[i].first.second.second==-1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " b" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " b" << '#';
                         }
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter--;
