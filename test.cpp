@@ -3,24 +3,36 @@
 
 using namespace std;
 
-// Merge two halves of the vector
-void merge(vector<pair<int, int>>& arr, int left, int mid, int right) {
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
+bool customComparator2(const pair<vector<int>, string> &a, const pair<vector<int>, string> &b) {
+    // Sort based on vector<int>[0]
+    if (a.first[0] != b.first[0]) {
+        return a.first[0] < b.first[0];
+    }
 
-    // Create temporary vectors
-    vector<pair<int, int>> L(n1), R(n2);
+    // Sort based on vector<int>[1]
+    if (a.first[1] != b.first[1]) {
+        return a.first[1] < b.first[1];
+    }
 
-    // Copy data to temporary vectors L[] and R[]
+    // Sort based on string in increasing alphabetical order
+    return a.second < b.second;
+}
+
+void merge2(vector<pair<vector<int>, string>> &arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    vector<pair<vector<int>, string>> L(n1);
+    vector<pair<vector<int>, string>> R(n2);
+
     for (int i = 0; i < n1; i++)
-        L[i] = arr[left + i];
+        L[i] = arr[l + i];
     for (int j = 0; j < n2; j++)
-        R[j] = arr[mid + 1 + j];
+        R[j] = arr[m + 1 + j];
 
-    // Merge the temporary vectors back into arr[left..right]
-    int i = 0, j = 0, k = left;
+    int i = 0, j = 0, k = l;
     while (i < n1 && j < n2) {
-        if (L[i].first <= R[j].first) {
+        if (customComparator2(L[i], R[j])) {
             arr[k] = L[i];
             i++;
         } else {
@@ -30,14 +42,12 @@ void merge(vector<pair<int, int>>& arr, int left, int mid, int right) {
         k++;
     }
 
-    // Copy the remaining elements of L[], if there are any
     while (i < n1) {
         arr[k] = L[i];
         i++;
         k++;
     }
 
-    // Copy the remaining elements of R[], if there are any
     while (j < n2) {
         arr[k] = R[j];
         j++;
@@ -45,33 +55,33 @@ void merge(vector<pair<int, int>>& arr, int left, int mid, int right) {
     }
 }
 
-// Merge Sort function
-void mergeSort(vector<pair<int, int>>& arr, int left, int right) {
-    if (left < right) {
-        // Same as (left+right)/2, but avoids overflow for large left and right
-        int mid = left + (right - left) / 2;
+void mergeSort2(vector<pair<vector<int>, string>> &arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
 
-        // Sort first and second halves
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+        mergeSort2(arr, l, m);
+        mergeSort2(arr, m + 1, r);
 
-        // Merge the sorted halves
-        merge(arr, left, mid, right);
+        merge2(arr, l, m, r);
     }
 }
 
 int main() {
     // Example usage
-    vector<pair<int, int>> vec = {{9, 5}, {1, 8}, {2, 3}, {4, 1}, {6, 7}};
-    
-    // Calculate the size of the vector
+    vector<pair<vector<int>, string>> data = {
+        {{3, 5}, "apple"},
+        {{2, 9}, "banana"},
+        {{3, 5}, "orange"},
+        {{1, 3}, "grape"},
+        {{2, 8}, "kiwi"}
+    };
 
-    // Perform merge sort
-    mergeSort(vec, 0, vec.size() - 1);
+    // Sorting the vector using custom comparator
+    mergeSort2(data, 0, data.size() - 1);
 
-    // Print the sorted vector
-    for (const auto& p : vec) {
-        cout << "(" << p.first << ", " << p.second << ") ";
+    // Printing the sorted vector
+    for (const auto &item : data) {
+        cout << "{" << item.first[0] << ", " << item.first[1] << ", " << item.second << "} ";
     }
 
     return 0;
