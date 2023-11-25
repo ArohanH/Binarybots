@@ -72,6 +72,16 @@ bool isNumber(string s)
     return true;
 }
 
+bool equal ( auto first1, auto last1, auto first2 )
+{
+  while (first1!=last1) {
+    if (!(*first1 == *first2))   // or: if (!pred(*first1,*first2)), for version 2
+      return false;
+    ++first1; ++first2;
+  }
+  return true;
+}
+
 
 // my code
 int main()
@@ -530,7 +540,7 @@ int main()
             }
         }
         for(int i=0;i<overall_stock_info_part_3.size()-1;i++){
-            if(overall_stock_info_part_3[i].first.first[0].first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.first[0].first){
+            if(overall_stock_info_part_3[i].first.first.begin()+1,overall_stock_info_part_3[i].first.first.end(),overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.first.begin()+1){
                 if(overall_stock_info_part_3[i].first.second.second==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.second && overall_stock_info_part_3[i].first.second.second==1 && overall_stock_info_part_3[i].first.second.first==overall_stock_info_part_3[overall_stock_info_part_3.size()-1].first.second.first){ //same type of buy order quantities added
                     //overall_stock_info.erase(overall_stock_info.begin()+i);
                     overall_stock_info_part_3[overall_stock_info_part_3.size()-1].second+= overall_stock_info_part_3[i].second;
@@ -586,8 +596,8 @@ int main()
                     int profit=0;
                     for(int k=0; k<subset[0].first.size()-1;k++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
                         for(int j=0; j<subset.size();j++){
-                            //std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
-                            //std::cout << profit << std::endl;
+                            std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
+                            std::cout << profit << std::endl;
                             //std::cout << k << std::endl;
                             //std::cout << j << std::endl;
                             sum_of_quantities[k+1]+=subset[j].first[k+1].second*subset[j].second.second;// k+1, since first pair is (string, stock_number)
@@ -605,11 +615,11 @@ int main()
                             max_profit_subset.clear();//to clear previous data
                             for(int z=0;z<subset.size();z++){
                                 int max_profit_quantity=1;
-                                while(subset[i]==subset[i+1]){
+                                while(subset[z]==subset[z+1]){
                                     max_profit_quantity++;
                                     z++;
                                 }
-                                max_profit_subset.push_back(make_pair(subset[i].first[0].second,max_profit_quantity));
+                                max_profit_subset.push_back(make_pair(subset[z].first[0].second,max_profit_quantity));
                             }
                         }
                     }
@@ -628,10 +638,10 @@ int main()
                     if(max_profit_subset[iter].first==overall_stock_info_part_3[i].first.first[0].second){
                         //cout<< overall_stock_info_part_3[i].first.second.second << endl;
                         if(overall_stock_info_part_3[i].first.second.second==1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " s" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " s" << endl;
                         }
                         else if(overall_stock_info_part_3[i].first.second.second==-1){
-                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " b" << '#';
+                            cout << overall_stock_info_part_3[i].first.first[0].first << max_profit_subset[iter].second << " b" << endl;
                         }
                         overall_stock_info_part_3[i].second-=max_profit_subset[iter].second;
                         iter--;
