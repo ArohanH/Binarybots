@@ -237,12 +237,14 @@ void mergeSort2(vector<pair<vector<int>, string>> &arr, int l, int r) {
 int main()
 {
     vector<pair<string, int>> stocks;
+    vector<pair<string,vector<int>>> client;
     vector<pair<vector<int>, pair<string, pair<vector<pair<int, int>>, vector<int>>>>> buy;
     vector<pair<vector<int>, pair<string, pair<vector<pair<int, int>>, vector<int>>>>> sell;
     // 1st vector<int> has 1->timestamp, 2->validperiod, 3->expiry, 0->validity
     ifstream inputFile("output.txt");
     string line;
     int time = 0;
+    int amount=0,total_shares=0,total_trades=0;
     while (getline(inputFile, line))
     {
         if (line == "!@")
@@ -254,6 +256,27 @@ int main()
             continue;
         }
         string line1=line;
+        istringstream iss(line);
+        // variables
+        string clientname, ordertype, stockname, stock_quantity;
+        int timestamp, price, quantity, period, expiry, stockquantity;
+
+        iss >> timestamp >> clientname >> ordertype;
+        bool check=false;
+        for(int i=0;i<client.size();i++){
+            if(client[i].first==clientname){
+                check=true;
+                break;
+            }
+        }
+        if(!check){
+            pair<string,vector<int>> push_client;
+            push_client.first=clientname;
+            push_client.second.push_back(0);// bought
+            push_client.second.push_back(0);//sold
+            push_client.second.push_back(0);//total amount
+            client.push_back(push_client);
+        }
         string zeig;
         istringstream istry(line1);
         bool ignore=false;
@@ -270,12 +293,6 @@ int main()
         if(ignore){
             continue;
         }
-        istringstream iss(line);
-        // variables
-        string clientname, ordertype, stockname, stock_quantity;
-        int timestamp, price, quantity, period, expiry, stockquantity;
-
-        iss >> timestamp >> clientname >> ordertype;
         if (timestamp != time)
         {
             for (auto &buy_item : buy)
@@ -414,6 +431,23 @@ int main()
                 {
                     buy_temp.second.second.second[1] = buy_temp.second.second.second[1] - sell[t].second.second.second[1];
                     cout <<buy_temp.second.first<<" purchased "<<sell[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
+                    total_shares+=sell[t].second.second.second[1];
+                    total_trades+=1;
+                    amount+=sell[t].second.second.second[1]*sell[t].second.second.second[0];
+                    int alpha=0;
+                    for(int i=0;i<client.size();i++){
+                        if(client[i].first==buy_temp.second.first){
+                            client[i].second[0]+=sell[t].second.second.second[1];
+                            client[i].second[2]-=sell[t].second.second.second[1]*sell[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(client[i].first==sell[t].second.first){
+                            client[i].second[1]+=sell[t].second.second.second[1];
+                            client[i].second[2]+=sell[t].second.second.second[1]*sell[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(alpha==2) break;
+                    }
                     sell[t].second.second.second[1] = 0;
                     sell[t].first[0]=0;
                 }
@@ -421,6 +455,23 @@ int main()
                 {
                     sell[t].second.second.second[1] = sell[t].second.second.second[1] - buy_temp.second.second.second[1];
                     cout <<buy_temp.second.first<<" purchased "<<buy_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell[t].second.first<<" for $"<<sell[t].second.second.second[0]<<"/share"<<endl;
+                    total_shares+=buy_temp.second.second.second[1];
+                    total_trades+=1;
+                    amount+=buy_temp.second.second.second[1]*sell[t].second.second.second[0];
+                    int alpha=0;
+                    for(int i=0;i<client.size();i++){
+                        if(client[i].first==buy_temp.second.first){
+                            client[i].second[0]+=buy_temp.second.second.second[1];
+                            client[i].second[2]-=buy_temp.second.second.second[1]*sell[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(client[i].first==sell[t].second.first){
+                            client[i].second[1]+=buy_temp.second.second.second[1];
+                            client[i].second[2]+=buy_temp.second.second.second[1]*sell[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(alpha==2) break;
+                    }
                     buy_temp.second.second.second[1] = 0;
                     buy_temp.first[0] = 0;
                     if(sell[t].second.second.second[1]==0){
@@ -467,7 +518,7 @@ int main()
                 }
                 int size = stocks.size();
                 if (!found)
-                {
+                {                           
                     hash_val = size;
                     stocks.push_back(make_pair(stockname, hash_val));
                 }
@@ -557,6 +608,23 @@ int main()
                 {
                     sell_temp.second.second.second[1] = sell_temp.second.second.second[1] - buy[t].second.second.second[1];
                     cout <<buy[t].second.first<<" purchased "<<buy[t].second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
+                    total_shares+=buy[t].second.second.second[1];
+                    amount+=buy[t].second.second.second[1]*buy[t].second.second.second[0];
+                    int alpha=0;
+                    for(int i=0;i<client.size();i++){
+                        if(client[i].first==buy[t].second.first){
+                            client[i].second[0]+=buy[t].second.second.second[1];
+                            client[i].second[2]-=buy[t].second.second.second[1]*buy[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(client[i].first== sell_temp.second.first){
+                            client[i].second[1]+=buy[t].second.second.second[1];
+                            client[i].second[2]+=buy[t].second.second.second[1]*buy[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(alpha==2) break;
+                    }
+                    total_trades+=1;
                     buy[t].second.second.second[1] = 0;
                     buy[t].first[0]=0;
                 }
@@ -564,6 +632,23 @@ int main()
                 {
                     buy[t].second.second.second[1] = buy[t].second.second.second[1] - sell_temp.second.second.second[1];
                     cout <<buy[t].second.first<<" purchased "<<sell_temp.second.second.second[1]<<" share of "<<printout<<"from "<<sell_temp.second.first<<" for $"<<buy[t].second.second.second[0]<<"/share"<<endl;
+                    total_shares+=sell_temp.second.second.second[1];
+                    amount+=sell_temp.second.second.second[1]*buy[t].second.second.second[0];
+                    total_trades+=1;
+                    int alpha=0;
+                    for(int i=0;i<client.size();i++){
+                        if(client[i].first==buy[t].second.first){
+                            client[i].second[0]+=sell_temp.second.second.second[1];
+                            client[i].second[2]-=sell_temp.second.second.second[1]*buy[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(client[i].first== sell_temp.second.first){
+                            client[i].second[1]+=sell_temp.second.second.second[1];
+                            client[i].second[2]+=sell_temp.second.second.second[1]*buy[t].second.second.second[0];
+                            alpha++;
+                        }
+                        if(alpha==2) break;
+                    }
                     sell_temp.second.second.second[1] = 0;
                     sell_temp.first[0] = 0;
                     if(buy[t].second.second.second[1]==0){
@@ -580,6 +665,12 @@ int main()
     }
     cout<<endl;
     cout<<"---End of Day--- "<<endl;
-    return 0;
+    cout<<"Total Amount of Money Transferred: $"<<amount<<endl;
+    cout<<"Number of Completed Trades: "<<total_trades<<endl;
+    cout<<"Number of Shares Traded: "<<total_shares<<endl;
 
+    for(int i=0;i<client.size();i++){
+        cout<<client[i].first<<" bought "<<client[i].second[0]<<" and sold "<<client[i].second[1]<<" for a net transfer of $"<<client[i].second[2]<<endl;
+    }
+    return 0;
 }
