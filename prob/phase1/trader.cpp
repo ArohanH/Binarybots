@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <sstream>
 
-
 using namespace std;
 
 //vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_all_the_stock_combinations_part_2;
@@ -50,7 +49,7 @@ void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,i
     }
 }
 
-vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsetsWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>> tuples)
+vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsetsWithQuantity(vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>>& tuples)
 {
     vector<pair<vector<pair<string,int>>,pair<int,int>>> subset;
     vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> res;
@@ -91,11 +90,10 @@ int main()
     string input_file = rcv.readIML();
     input_file.pop_back(); // remove the $ at the end of the input_file
     string line;
+    int total_profit=0;
     // vector<pair<string, int>> buy_update;
     // vector<pair<string, int>> sell_update;
-
     istringstream stream(input_file);
-
     // while (getline(stream, line, '#'))
     // {
     //     string stock_name;
@@ -290,7 +288,7 @@ int main()
     //     char act; 
     //     istringstream stream(line);
     //     //std::cout<<line <<std::endl;
-    //     current_stock_info.push_back(make_pair(line,j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
+    //     current_stock_info.push_back(make_pair(line.substr(0,line.length()-1),j+1));//first element is 1 means the stock has not been used for arbitrage and j+1 is printing which line of input it is
     //     j++;
         
     //     int no_of_stocks=0;// for number of stocks in the LC 
@@ -335,11 +333,6 @@ int main()
     //     else overall_stock_info.push_back(make_pair(current_stock_info,make_pair(price,-1)));// -1 for sell
     //     //overall_stock_info.push_back(current_stock_info);
     //     //algorithm to do the trade
-
-
-    //     for(int i=0;i<current_stock_info.size();i++){
-    //         //std::cout << current_stock_info[i].first << current_stock_info[i].second << std::endl;
-    //     }
         
     //     int brk=0;
     //     for(int i=0;i<overall_stock_info.size()-1;i++){
@@ -353,7 +346,7 @@ int main()
     //         }
     //     }
     //     for(int i=0;i<overall_stock_info.size()-1;i++){
-    //         if(overall_stock_info[i].first[0].first==overall_stock_info[overall_stock_info.size()-1].first[0].first){
+    //         if(isequal(overall_stock_info[i].first.begin()+1,overall_stock_info[i].first.end(),overall_stock_info[overall_stock_info.size()-1].first.begin()+1)){
     //             if(overall_stock_info[i].second.second==overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.second==1 && overall_stock_info[i].second.first>overall_stock_info[overall_stock_info.size()-1].second.first){ //better buy price and the current order cancelled
     //                 //overall_stock_info.erase(overall_stock_info.begin()+i);
     //                 overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
@@ -380,16 +373,18 @@ int main()
     //     }
     //     if(brk==0){
     //         for(int i=0;i<overall_stock_info.size()-1;i++){
-    //             if(overall_stock_info[i].second.second==-overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.first==overall_stock_info[overall_stock_info.size()-1].second.first){ //buy-sell cancellation of same LC with same price
-    //                 overall_stock_info.erase(overall_stock_info.begin()+i);
-    //                 overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
-    //                 brk=1;
-    //                 break;
-    //             }    
+    //             if(isequal(overall_stock_info[i].first.begin()+1,overall_stock_info[i].first.end(),overall_stock_info[overall_stock_info.size()-1].first.begin()+1)){
+    //                 if(overall_stock_info[i].second.second==-overall_stock_info[overall_stock_info.size()-1].second.second && overall_stock_info[i].second.first==overall_stock_info[overall_stock_info.size()-1].second.first){ //buy-sell cancellation of same LC with same price
+    //                     overall_stock_info.erase(overall_stock_info.begin()+i);
+    //                     overall_stock_info.erase(overall_stock_info.begin()+overall_stock_info.size()-1);
+    //                     brk=1;
+    //                     break;
+    //                 }  
+    //             }  
     //         }
     //     }
     //     if(brk==1){
-    //         cout << "No Trade" << endl;
+    //         cout << "No Trade\n";
     //     }
     //     else{
     //         int max_profit;
@@ -401,21 +396,12 @@ int main()
     //             vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
     //             if(!subset.empty()){
     //                 vector<int> sum_of_quantities(subset[0].first.size(),0);
-    //                 //cout << max_profit << endl;
-    //                 //max_profit++;
     //                 int profit=0;
-    //                 for(int k=0; k<subset[0].first.size()-1;k++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
-    //                     for(int j=0; j<subset.size();j++){
-    //                         //std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
-    //                         //std::cout << profit << std::endl;
-    //                         //std::cout << k << std::endl;
-    //                         //std::cout << j << std::endl;
+    //                 for(int j=0; j<subset.size();j++){
+    //                     for(int k=0; k<subset[0].first.size()-1;k++){//subset[0].first contains one more (stock order name, stock order number) pair hence size-1
     //                         sum_of_quantities[k+1]+=subset[j].first[k+1].second*subset[j].second.second;// k+1, since first pair is (string, stock_number)
-    //                         //std::cout << subset[j].second.first<< endl;
-    //                         //std::cout << subset[j].second.second << endl;
-    //                         //std::cout << subset[j].second.first*subset[j].second.second << endl;
+    //                     }   
     //                         profit+=subset[j].second.first*subset[j].second.second;
-    //                     }
     //                 }
     //                 bool allZeros = std::all_of(sum_of_quantities.begin(), sum_of_quantities.end(), [](int element) {
     //                 return element == 0;});//To Check whether all elements are zero or not
@@ -431,10 +417,11 @@ int main()
     //             }
     //         }
     //         if(max_profit==0){
-    //             cout << "No Trade" << endl;
+    //             cout << "No Trade\n";
     //         }
     //         else{
     //             int iter=max_profit_subset.size()-1;
+    //             total_profit=total_profit+max_profit;
     //             //int size_fixed=overall_stock_info.size();
     //             for(int i=overall_stock_info.size()-1;i>=0;i--){
     //                 if(iter==max_profit_subset.size()){
@@ -442,7 +429,13 @@ int main()
     //                 }
     //                 if(max_profit_subset[iter]==overall_stock_info[i].first[0].second){
     //                     iter--;
-    //                     cout << overall_stock_info[i].first[0].first << '#';
+    //                     if(overall_stock_info[i].second.second==1){
+    //                         string oz=overall_stock_info[i].first[0].first;
+    //                         cout << oz << "s#\n";
+    //                     }
+    //                     else if(overall_stock_info[i].second.second==-1){
+    //                         cout << overall_stock_info[i].first[0].first << "b#\n";
+    //                     }
     //                     overall_stock_info.erase(overall_stock_info.begin()+i);
     //                     i++;
     //                 }
@@ -450,8 +443,7 @@ int main()
     //         }
     //     }
     // }
-
-
+    // cout << total_profit <<"\n";
 
     //Part3 Code 
     vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>> overall_stock_info_part_3;
@@ -610,15 +602,15 @@ int main()
                             profit+=subset[j].second.first*subset[j].second.second;
                         
                     }
+                    //for(int o=0;o<sum_of_quantities.size();o++){
+                        //cout << sum_of_quantities[o] << endl;
+                    //    if(o==sum_of_quantities.size()-1 && allZeros && profit>0){
+                    //        cout << o << " " << profit << " subset priniting ended" << endl;
+                    //    }
+                    //}
+                    //To Check whether all elements are zero or not
                     bool allZeros = std::all_of(sum_of_quantities.begin(), sum_of_quantities.end(), [](int element) {
                     return element == 0;});
-                    for(int o=0;o<sum_of_quantities.size();o++){
-                        //cout << sum_of_quantities[o] << endl;
-                        if(o==sum_of_quantities.size()-1 && allZeros && profit>0){
-                            cout << o << " " << profit << " subset priniting ended" << endl;
-                        }
-                    }
-                    //To Check whether all elements are zero or not
                     if(allZeros){
                         if(max_profit<profit){
                             max_profit=profit;
@@ -633,7 +625,7 @@ int main()
                                 std::cout << max_profit << endl;
                                 std::cout << subset[z].first[0].first << max_profit_quantity << subset.size() << endl;
                             }
-                            cout << "Hello"<<endl;
+                            //cout << "Hello"<<endl;
                             int x=0;
                             for(int j=0; j<subset.size();j++){
                                 x+=subset[j].second.first*subset[j].second.second;
@@ -676,4 +668,4 @@ int main()
     }
 
     return 0;
-}
+ }
