@@ -5,8 +5,6 @@
 #include <sstream>
 using namespace std;
 
-
-
 bool compare_vec(vector<pair<int, int>> &a, vector<pair<int, int>> &b)
 {
     if (a.size() != b.size())
