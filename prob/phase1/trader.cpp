@@ -24,8 +24,8 @@ vector<vector<pair<vector<pair<string, int>>, pair<int, int>>>> subsets(vector<p
     return res;
 }
 
-void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int, int>>, int>> &tuples, vector<vector<pair<vector<pair<string, int>>, pair<int, int>>>> &res,
-                            vector<pair<vector<pair<string, int>>, pair<int, int>>> &subset, int index)
+void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int, int>>, int>> &tuples, vector<vector<pair<pair<vector<pair<string, int>>, pair<int, int>>,int>>> &res,
+                            vector<pair<pair<vector<pair<string, int>>, pair<int, int>>,int>> &subset, int index)
 {
     // Add the current subset to the result list
     res.push_back(subset);
@@ -36,7 +36,7 @@ void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int
         for (int j = 1; j <= tuples[i].second; j++)
         {
             // Include the current element in the subset 'j' times
-            subset.push_back(tuples[i].first);
+            subset.push_back(make_pair(tuples[i].first,j));
 
             // Recursively generate subsets with the current element included 'j' times
             calcSubsetWithQuantity(tuples, res, subset, i + 1);
@@ -45,12 +45,13 @@ void calcSubsetWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int
             subset.pop_back();
         }
     }
+    // return;
 }
 
-vector<vector<pair<vector<pair<string, int>>, pair<int, int>>>> subsetsWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int, int>>, int>> &tuples)
+vector<vector<pair<pair<vector<pair<string, int>>, pair<int, int>>,int>>> subsetsWithQuantity(vector<pair<pair<vector<pair<string, int>>, pair<int, int>>, int>> &tuples)
 {
-    vector<pair<vector<pair<string, int>>, pair<int, int>>> subset;
-    vector<vector<pair<vector<pair<string, int>>, pair<int, int>>>> res;
+    vector<pair<pair<vector<pair<string, int>>, pair<int, int>>,int>> subset;
+    vector<vector<pair<pair<vector<pair<string, int>>, pair<int, int>>,int>>> res;
     int index = 0;
     calcSubsetWithQuantity(tuples, res, subset, index);
     return res;
@@ -498,16 +499,17 @@ void part2()
                         iter--;
                         if (overall_stock_info[i].second.second == 1)
                         {
-                            cout << overall_stock_info[i].first[0].first << "s#" << endl;
+                            cout << overall_stock_info[i].first[0].first << "s#";
                         }
                         else if (overall_stock_info[i].second.second == -1)
                         {
-                            cout << overall_stock_info[i].first[0].first << "b#" << endl;
+                            cout << overall_stock_info[i].first[0].first << "b#";
                         }
                         overall_stock_info.erase(overall_stock_info.begin() + i);
                         i++;
                     }
                 }
+                cout << endl;
             }
         }
     }
@@ -658,50 +660,57 @@ void part3()
             //        overall_stock_info_part_3_order_splits.push_back(overall_stock_info_part_3[q].first);
             //    }
             //}
-            vector<vector<pair<vector<pair<string,int>>,pair<int,int>>>> subsets_of_the_orders=subsetsWithQuantity(overall_stock_info_part_3);//my vector containing all the subsets of the stock
+            vector<vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>>> subsets_of_the_orders=subsetsWithQuantity(overall_stock_info_part_3);//my vector containing all the subsets of the stock
+            // cout << overall_stock_info_part_3.size() << endl;
+            // cout << "Hi" << endl;
             for(int i=0;i<subsets_of_the_orders.size();i++){
-                vector<pair<vector<pair<string,int>>,pair<int,int>>>subset=subsets_of_the_orders[i];
+                //cout << subsets_of_the_orders.size() << endl;
+                vector<pair<pair<vector<pair<string,int>>,pair<int,int>>,int>>subset=subsets_of_the_orders[i];
                 if(!subset.empty()){
-                    vector<int> sum_of_quantities(subset[0].first.size(),0);
+                    vector<int> sum_of_quantities(subset[0].first.first.size(),0);
                     //cout << max_profit << endl;
                     //max_profit++;
                     int profit=0;
                         //subset[0].first contains one more (stock order name, stock order number) pair hence size-1
                         //cout << "subset priniting started" << endl;
                     for(int j=0; j<subset.size();j++){
-                        for(int k=0; k<subset[0].first.size()-1;k++){
+                        // cout << subset[j].first[0].first << " " << subset.size() << endl;
+                        // for(int w=1; w<subset[j].first.size(); w++){
+                        //     cout << " " << subset[j].first[w].first << " " << subset[j].first[w].second; 
+                        // }
+                        //cout << endl; 
+                        for(int k=0; k<subset[0].first.first.size()-1;k++){
                             //std::cout << subset[j].first[0].first << endl;//for debugging purposes whether stock orders are being taken in subsets or not
                             //std::cout << profit << std::endl;
                             //std::cout << k << std::endl;
                             //std::cout << j << std::endl;
-                            sum_of_quantities[k+1]+=subset[j].first[k+1].second*subset[j].second.second;// k+1, since first pair is (string, stock_number)
+                            sum_of_quantities[k+1]+=subset[j].first.first[k+1].second*subset[j].first.second.second*subset[j].second;// k+1, since first pair is (string, stock_number)
                             //std::cout << subset[j].second.first<< endl;
                             //std::cout << subset[j].second.second << endl;
                             //std::cout << subset[j].second.first*subset[j].second.second << endl;
                         }
-                            profit+=subset[j].second.first*subset[j].second.second;
+                            profit+=subset[j].first.second.first*subset[j].first.second.second*subset[j].second;
                         
                     }
-                    //for(int o=0;o<sum_of_quantities.size();o++){
-                        //cout << sum_of_quantities[o] << endl;
-                    //    if(o==sum_of_quantities.size()-1 && allZeros && profit>0){
-                    //        cout << o << " " << profit << " subset priniting ended" << endl;
+                    bool allZeros = allof(sum_of_quantities.begin(), sum_of_quantities.end(), 0);
+                    // for(int o=0;o<sum_of_quantities.size();o++){
+                    //     //cout << sum_of_quantities[o] << endl;
+                    //     if(o==sum_of_quantities.size()-1 && allZeros && profit>0){
+                    //        cout << o << " " << profit << " subset priniting ended " << subset.size() << endl;
                     //    }
                     //}
                     //To Check whether all elements are zero or not
-                    bool allZeros = std::all_of(sum_of_quantities.begin(), sum_of_quantities.end(), [](int element) {
-                    return element == 0;});
                     if(allZeros){
                         if(max_profit<profit){
                             max_profit=profit;
                             max_profit_subset.clear();//to clear previous data
                             for(int z=0;z<subset.size();z++){
-                                int max_profit_quantity=1;
-                                while(subset[z]==subset[z+1]){
-                                    max_profit_quantity++;
-                                    z++;
-                                }
-                                max_profit_subset.push_back(make_pair(subset[z].first[0].second,max_profit_quantity));
+                                int max_profit_quantity=subset[z].second;
+                                // while(subset[z].first==subset[z+1]){
+                                //     max_profit_quantity++;
+                                //     z++;
+                                // }
+                                max_profit_subset.push_back(make_pair(subset[z].first.first[0].second,max_profit_quantity));
                                 //std::cout << max_profit << endl;
                                 //std::cout << subset[z].first[0].first << max_profit_quantity << subset.size() << endl;
                             }
@@ -721,6 +730,7 @@ void part3()
             }
             else{
                 int iter=max_profit_subset.size()-1;
+                total_profit=total_profit+max_profit;
                 //int size_fixed=overall_stock_info.size();
                 for(int i=overall_stock_info_part_3.size()-1;i>=0;i--){
                     if(iter==-1){
@@ -743,9 +753,12 @@ void part3()
                         } 
                     }
                 }
+                //cout << "hi" << endl;
             }
         }
+
     }
+    cout<< total_profit<< endl;
 }
 
 int main(int argc, char *argv[])

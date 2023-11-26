@@ -3,9 +3,8 @@ No Trade
 No Trade
 No Trade
 No Trade
-X 1 Y -1 10  1 s#
-Z 1 X -1 10 1 s#
-Y 1 Z -1 -15  1 s#
-X 1 Y -1 10  1 s#
-Z 1 X -1 10 1 s#
-Y 1 Z -1 -15  1 s#
+X 1 Y -1 10  3 s#
+Z 1 X -1 10 3 s#
+Y 1 Z -1 -15  3 s#
+No Trade
+15
