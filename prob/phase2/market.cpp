@@ -455,8 +455,16 @@ void market::start()
                     {
                         istringstream iss1(printout);
                         string tcv;
-                        iss1 >> tcv;
-                        cout << buy_temp.second.first << " purchased " << sell[t].second.second.second[1] << " share of " << tcv << " from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        int check_value;
+                        iss1 >> tcv >> check_value;
+                        if (check_value == 1)
+                        {
+                            cout << buy_temp.second.first << " purchased " << sell[t].second.second.second[1] << " share of " << tcv << " from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        }
+                        else
+                        {
+                            cout << buy_temp.second.first << " purchased " << sell[t].second.second.second[1] << " share of " << printout << "from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        }
                     }
                     else
                     {
@@ -493,8 +501,16 @@ void market::start()
                     {
                         istringstream iss1(printout);
                         string tcv;
-                        iss1 >> tcv;
-                        cout << buy_temp.second.first << " purchased " << buy_temp.second.second.second[1] << " share of " << tcv << " from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        int check_value;
+                        iss1 >> tcv >> check_value;
+                        if (check_value == 1)
+                        {
+                            cout << buy_temp.second.first << " purchased " << buy_temp.second.second.second[1] << " share of " << tcv << " from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        }
+                        else
+                        {
+                            cout << buy_temp.second.first << " purchased " << buy_temp.second.second.second[1] << " share of " << printout << "from " << sell[t].second.first << " for $" << sell[t].second.second.second[0] << "/share" << endl;
+                        }
                     }
                     else
                     {
@@ -663,8 +679,12 @@ void market::start()
                     {
                         istringstream iss1(printout);
                         string tcv;
-                        iss1 >> tcv;
-                        cout << buy[t].second.first << " purchased " << buy[t].second.second.second[1] << " share of " << tcv << " from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
+                        int hkl;
+                        iss1 >> tcv >> hkl;
+                        if (hkl == 1)
+                            cout << buy[t].second.first << " purchased " << buy[t].second.second.second[1] << " share of " << tcv << " from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
+                        else
+                            cout << buy[t].second.first << " purchased " << buy[t].second.second.second[1] << " share of " << printout << "from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
                     }
                     else
                     {
@@ -701,8 +721,12 @@ void market::start()
                     {
                         istringstream iss1(printout);
                         string tcv;
-                        iss1 >> tcv;
-                        cout << buy[t].second.first << " purchased " << sell_temp.second.second.second[1] << " share of " << tcv << " from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
+                        int hkl;
+                        iss1 >> tcv >> hkl;
+                        if (hkl == 1)
+                            cout << buy[t].second.first << " purchased " << sell_temp.second.second.second[1] << " share of " << tcv << " from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
+                        else
+                            cout << buy[t].second.first << " purchased " << sell_temp.second.second.second[1] << " share of " << printout << "from " << sell_temp.second.first << " for $" << buy[t].second.second.second[0] << "/share" << endl;
                     }
                     else
                     {

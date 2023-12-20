@@ -514,11 +514,11 @@ void part2()
                         iter--;
                         if (overall_stock_info[i].second.second == 1)
                         {
-                            cout << overall_stock_info[i].first[0].first << "s#" << endl;
+                            cout << overall_stock_info[i].first[0].first << "s" << endl;
                         }
                         else if (overall_stock_info[i].second.second == -1)
                         {
-                            cout << overall_stock_info[i].first[0].first << "b#" << endl;
+                            cout << overall_stock_info[i].first[0].first << "b" << endl;
                         }
                         overall_stock_info.erase(overall_stock_info.begin() + i);
                         i++;
@@ -527,7 +527,7 @@ void part2()
             }
         }
     }
-    cout << total_profit << endl;
+    cout << total_profit;
 }
 
 void part3()
@@ -747,7 +747,7 @@ void part3()
                                 // std::cout << max_profit << endl;
                                 // std::cout << subset[z].first[0].first << max_profit_quantity << subset.size() << endl;
                             }
-                                                }
+                        }
                     }
                 }
             }
@@ -772,12 +772,12 @@ void part3()
                         if (overall_stock_info_part_3[i].first.second.second == 1)
                         {
                             // cout << "$";
-                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " s#" << endl;
+                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " s" << endl;
                         }
                         else if (overall_stock_info_part_3[i].first.second.second == -1)
                         {
                             // cout << "$";
-                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " b#" << endl;
+                            cout << overall_stock_info_part_3[i].first.first[0].first << " " << max_profit_subset[iter].second << " b" << endl;
                         }
                         overall_stock_info_part_3[i].second -= max_profit_subset[iter].second;
                         iter--;
@@ -792,7 +792,7 @@ void part3()
             }
         }
     }
-    cout << total_profit << endl;
+    cout << total_profit;
 }
 
 int main(int argc, char *argv[])
